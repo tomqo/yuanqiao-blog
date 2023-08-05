@@ -1,4 +1,4 @@
-name: build Gmeek
+name: build Meet you
 
 on:
   workflow_dispatch:
@@ -33,28 +33,28 @@ jobs:
 
       - name: Clone source code
         run: |
-          git clone -b $(jq -r ".GMEEK_VERSION" config.json) https://github.com/Meekdai/Gmeek.git /opt/Gmeek
+          git clone -b $(jq -r ".Meet you_VERSION" config.json) https://github.com/tomqo you.git /opt/Meet you
 
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install -r /opt/Gmeek/requirements.txt
+          pip install -r /opt/Meet you/requirements.txt
 
       - name: Generate new html
         run: |
-          cp -r ./* /opt/Gmeek/
-          cd /opt/Gmeek/
-          python Gmeek.py ${{ secrets.GITHUB_TOKEN }} ${{ github.repository }} $(jq -r ".GMEEK_VERSION" config.json) --issue_number '${{ github.event.issue.number }}'
-          cp -a /opt/Gmeek/docs ${{ github.workspace }} 
-          cp -a /opt/Gmeek/backup ${{ github.workspace }} 
-          cp /opt/Gmeek/blogBase.json ${{ github.workspace }} 
+          cp -r ./* /opt/Meet you/
+          cd /opt/Meet you/
+          python Meet you.py ${{ secrets.GITHUB_TOKEN }} ${{ github.repository }} $(jq -r ".Meet you_VERSION" config.json) --issue_number '${{ github.event.issue.number }}'
+          cp -a /opt/Meet you/docs ${{ github.workspace }} 
+          cp -a /opt/Meet you/backup ${{ github.workspace }} 
+          cp /opt/Meet you/blogBase.json ${{ github.workspace }} 
           
       - name: update html
         run: |
           git config --local user.email "$(jq -r ".email" config.json)"
           git config --local user.name "${{ github.repository_owner }}"
           git add .
-          git commit -a -m '🎉auto update by Gmeek action' || echo "nothing to commit"
+          git commit -a -m '🎉auto update by Meet you action' || echo "nothing to commit"
           git push || echo "nothing to push"
           sleep 3
           
